@@ -80,6 +80,7 @@ class DatePicker extends StatefulWidget {
     this.previousPageSemanticLabel,
     this.nextPageSemanticLabel,
     this.disabledDayPredicate,
+    this.internalPadding = EdgeInsets.zero,
   }) {
     assert(!minDate.isAfter(maxDate), "minDate can't be after maxDate");
   }
@@ -113,6 +114,8 @@ class DatePicker extends StatefulWidget {
   ///
   /// Note that only dates are considered. time fields are ignored.
   final DateTime minDate;
+
+  final EdgeInsets internalPadding;
 
   /// The latest date the user is permitted to pick.
   ///
@@ -240,12 +243,15 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   void initState() {
-    final clampedInitailDate =
-        DateUtilsX.clampDateToRange(max: widget.maxDate, min: widget.minDate, date: DateTime.now());
-    _displayedDate = DateUtils.dateOnly(widget.initialDate ?? clampedInitailDate);
+    final clampedInitailDate = DateUtilsX.clampDateToRange(
+        max: widget.maxDate, min: widget.minDate, date: DateTime.now());
+    _displayedDate =
+        DateUtils.dateOnly(widget.initialDate ?? clampedInitailDate);
     _pickerType = widget.initialPickerType;
 
-    _selectedDate = widget.selectedDate != null ? DateUtils.dateOnly(widget.selectedDate!) : null;
+    _selectedDate = widget.selectedDate != null
+        ? DateUtils.dateOnly(widget.selectedDate!)
+        : null;
 
     super.initState();
   }
@@ -253,15 +259,18 @@ class _DatePickerState extends State<DatePicker> {
   @override
   void didUpdateWidget(covariant DatePicker oldWidget) {
     if (oldWidget.initialDate != widget.initialDate) {
-      final clampedInitailDate =
-          DateUtilsX.clampDateToRange(max: widget.maxDate, min: widget.minDate, date: DateTime.now());
-      _displayedDate = DateUtils.dateOnly(widget.initialDate ?? clampedInitailDate);
+      final clampedInitailDate = DateUtilsX.clampDateToRange(
+          max: widget.maxDate, min: widget.minDate, date: DateTime.now());
+      _displayedDate =
+          DateUtils.dateOnly(widget.initialDate ?? clampedInitailDate);
     }
     if (oldWidget.initialPickerType != widget.initialPickerType) {
       _pickerType = widget.initialPickerType;
     }
     if (oldWidget.selectedDate != widget.selectedDate) {
-      _selectedDate = widget.selectedDate != null ? DateUtils.dateOnly(widget.selectedDate!) : null;
+      _selectedDate = widget.selectedDate != null
+          ? DateUtils.dateOnly(widget.selectedDate!)
+          : null;
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -276,7 +285,9 @@ class _DatePickerState extends State<DatePicker> {
             centerLeadingDate: widget.centerLeadingDate,
             initialDate: _displayedDate,
             selectedDate: _selectedDate,
-            currentDate: DateUtils.dateOnly(widget.currentDate ?? DateTime.now()),
+            currentDate:
+                DateUtils.dateOnly(widget.currentDate ?? DateTime.now()),
+            internalPadding: widget.internalPadding,
             maxDate: DateUtils.dateOnly(widget.maxDate),
             minDate: DateUtils.dateOnly(widget.minDate),
             daysOfTheWeekTextStyle: widget.daysOfTheWeekTextStyle,
@@ -318,7 +329,8 @@ class _DatePickerState extends State<DatePicker> {
             centerLeadingDate: widget.centerLeadingDate,
             initialDate: _displayedDate,
             selectedDate: _selectedDate,
-            currentDate: DateUtils.dateOnly(widget.currentDate ?? DateTime.now()),
+            currentDate:
+                DateUtils.dateOnly(widget.currentDate ?? DateTime.now()),
             maxDate: DateUtils.dateOnly(widget.maxDate),
             minDate: DateUtils.dateOnly(widget.minDate),
             currentDateDecoration: widget.currentDateDecoration,
@@ -363,7 +375,8 @@ class _DatePickerState extends State<DatePicker> {
             centerLeadingDate: widget.centerLeadingDate,
             initialDate: _displayedDate,
             selectedDate: _selectedDate,
-            currentDate: DateUtils.dateOnly(widget.currentDate ?? DateTime.now()),
+            currentDate:
+                DateUtils.dateOnly(widget.currentDate ?? DateTime.now()),
             maxDate: DateUtils.dateOnly(widget.maxDate),
             minDate: DateUtils.dateOnly(widget.minDate),
             currentDateDecoration: widget.currentDateDecoration,

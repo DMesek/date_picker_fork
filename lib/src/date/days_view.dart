@@ -37,6 +37,7 @@ class DaysView extends StatelessWidget {
     required this.splashColor,
     this.splashRadius,
     this.disabledDayPredicate,
+    this.internalPadding = EdgeInsets.zero,
   }) {
     assert(!minDate.isAfter(maxDate), "minDate can't be after maxDate");
 
@@ -60,6 +61,8 @@ class DaysView extends StatelessWidget {
   ///
   /// Note that only dates are considered. time fields are ignored.
   final DateTime? selectedDate;
+
+  final EdgeInsets internalPadding;
 
   /// The current date at the time the picker is displayed.
   /// In other words, the day to be considered as today.
@@ -243,8 +246,6 @@ class DaysView extends StatelessWidget {
         }
 
         Widget dayWidget = Container(
-          width: 32,
-          height: 32,
           decoration: decoration,
           child: Center(
             child: Text(
@@ -284,7 +285,7 @@ class DaysView extends StatelessWidget {
       }
     }
     return GridView.custom(
-      padding: EdgeInsets.zero,
+      padding: internalPadding,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: PickerGridDelegate(
