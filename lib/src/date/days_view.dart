@@ -246,11 +246,13 @@ class DaysView extends StatelessWidget {
         }
 
         Widget dayWidget = Container(
-          decoration: decoration,
           child: Center(
-            child: Text(
-              localizations.formatDecimal(day),
-              style: style,
+            child: Container(
+              decoration: decoration,
+              child: Text(
+                localizations.formatDecimal(day),
+                style: style,
+              ),
             ),
           ),
         );
